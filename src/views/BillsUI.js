@@ -21,7 +21,9 @@ const row = (bill) => {
 
 const rows = (data) => {
   //ajout fonction sort pour trier les bills du plus récent au plus ancien 
-  return (data && data.length) ? data.sort((a, b) => ((a < b) ? 1 : -1)).map(bill => row(bill)).join("") : ""
+  return (data && data.length) ? data.sort((a, b) => {
+    return new Date(b.date) - new Date(a.date);
+  }).map(bill => row(bill)).join("") : ""
 }
 
 export default ({ data: bills, loading, error }) => {

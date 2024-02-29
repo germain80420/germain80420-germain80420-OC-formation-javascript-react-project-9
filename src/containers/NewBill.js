@@ -17,11 +17,25 @@ export default class NewBill {
   }
   handleChangeFile = e => {
     e.preventDefault()
-    const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
+    //Corrections des bugs lié à l'upload du fichier image
+    const fileInput = this.document.querySelector(`input[data-testid="file"]`)
+    const errorFileType = this.document.querySelector(`p[id="error-file-type"]`)
+    const file = fileInput.files[0]
     const filePath = e.target.value.split(/\\/g)
+    const allowedExtensions = ['jpg', 'jpeg', 'png']
     const fileName = filePath[filePath.length-1]
+    const fileExtension = fileName.split('.').pop()
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email
+    if (!allowedExtensions.includes(fileExtension)) {
+      console.log("Extension de fichier non autorisée. Veuillez sélectionner un fichier jpg, jpeg ou png.")
+      errorFileType.textContent = "Seuls les fichiers .png, .jpg et .jpeg sont autorisés."
+
+      fileInput.value = null
+      e.preventDefault()
+      return;
+    }
+    errorFileType.textContent = ""
     formData.append('file', file)
     formData.append('email', email)
 

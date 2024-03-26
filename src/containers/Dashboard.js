@@ -106,7 +106,7 @@ export default class {
       $('.dashboard-right-container div').html(DashboardFormUI(bill))
       $('.vertical-navbar').css({ height: '150vh' })
       bills.forEach(b => {
-        $(`#open-bill${b.id}`).off('click').click((e) => this.handleEditTicket(e, b, bills));
+        $(`#open-bill${b.id}`).off('click').click((e) => this.handleEditTicket(e, b, bills))
       });
       $(`#open-bill${bill.id}`).css({ background: '#2A2B35' })
       $('.dashboard-right-container div').html(DashboardFormUI(bill))
@@ -177,7 +177,7 @@ export default class {
         return bills
       })
       .catch(error => {
-        throw error;
+        throw error
       })
     }
   }
